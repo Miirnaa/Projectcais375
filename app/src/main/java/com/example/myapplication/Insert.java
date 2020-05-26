@@ -2,11 +2,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,10 +21,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-public class InsertActivity extends AppCompatActivity {
+public class Insert extends AppCompatActivity {
     String txtName, txtprice,txtstorage,txtspecs;
     String ServerURL;
     EditText NameEditText, storageEditText, priceEditText, specsEditText;
@@ -36,29 +31,25 @@ public class InsertActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert);
-
+        setContentView(R.layout.insert);
         ServerURL = "https://www.palpharmacy.com/insert_mobile.php";
-
-        // ServerURL = "http://172.20.10.3/mobiles/insert_mobiles.php";
-
         NameEditText = findViewById(R.id.NameEditText);
         priceEditText = findViewById(R.id.priceEditText);
         storageEditText = findViewById(R.id.storageEditText);
         specsEditText = findViewById(R.id.specsEditText);
-
         InsertData =  findViewById(R.id.InsertButton);
 
-        InsertData.setOnClickListener(new View.OnClickListener() {
+        InsertData.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetData();
-                InsertData(txtName,txtspecs,txtprice,txtstorage);
+                get();
+                Insert(txtName,txtspecs,txtprice,txtstorage);
             }
         });
     }
 
-    public void GetData(){
+    public void get(){
         txtName = NameEditText.getText().toString();
         txtprice= priceEditText.getText().toString();
         txtstorage= storageEditText.getText().toString();
@@ -66,7 +57,7 @@ public class InsertActivity extends AppCompatActivity {
 
     }
 
-    public void InsertData(final String name, final String specs, final String price, final String storage){
+    public void Insert(final String name, final String specs, final String price, final String storage){
 
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
@@ -92,14 +83,14 @@ public class InsertActivity extends AppCompatActivity {
                 } catch (IOException e) {
 
                 }
-                return "Data inserted successfully";
+                return "Successfully";
             }
 
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
 
-                Toast.makeText(InsertActivity.this, "Data inserted successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(Insert.this, "Successfully", Toast.LENGTH_LONG).show();
             }
         }
 

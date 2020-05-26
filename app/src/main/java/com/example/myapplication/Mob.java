@@ -1,6 +1,6 @@
 package com.example.myapplication;
 
-public class mobiles {
+public class Mob {
     private String name;
     private String price;
     private String storage;
@@ -8,7 +8,7 @@ public class mobiles {
     private String mobileurl;
     private String iconurl;
 
-    public mobiles() {
+    public Mob() {
 
     }
 

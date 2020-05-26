@@ -1,5 +1,4 @@
 package com.example.myapplication;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -9,10 +8,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,25 +25,30 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class update_list extends AppCompatActivity {
+public class listview extends AppCompatActivity {
 
-    String [] mobiles;
+    String[] mobiles;
     ListView listView;
+RequestOptions option;
     Intent intent;
+    private final String JSON_URL = "https://www.palpharmacy.com/getPharmacies";
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_list);
+        setContentView(R.layout.list);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Update");
+        actionBar.setTitle("List of mobiles");
         getJSON("https://www.palpharmacy.com/mobiles.php");
+
         listView = (ListView) findViewById(R.id.listView);
-        intent = new Intent(update_list.this, update_mobile.class);
+        intent = new Intent(listview.this, details.class);
+        jsonrequest();
+
     }
 
-    private void getJSON(final String urlWebService) {
+
+    private void getJSON(final String urladdress) {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
@@ -52,7 +61,8 @@ public class update_list extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 try {
-                    loadIntoListView(s);
+
+                    add_to(s);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -67,7 +77,7 @@ public class update_list extends AppCompatActivity {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;
                     while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
+                        sb.append(json);
                     }
                     return sb.toString().trim();
                 } catch (Exception e) {
@@ -79,15 +89,17 @@ public class update_list extends AppCompatActivity {
         getJSONObj.execute();
     }
 
-    private void loadIntoListView(String json) throws JSONException {
+    private void add_to(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
         mobiles = new String[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
             mobiles[i] = obj.getString("name");
 
+
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mobiles){
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mobiles) {
 
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -108,4 +120,65 @@ public class update_list extends AppCompatActivity {
             }
         });
     }
+    private void jsonrequest() {
+        JsonArrayRequest request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                JSONObject jsonObject;
+
+                for (int i = 0; i < response.length(); i++) {
+
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        Mob mobiles = new Mob();
+                        mobiles.setName(jsonObject.getString("name"));
+                        mobiles.setStorage(jsonObject.getString("storage"));
+                        mobiles.setSpecs(jsonObject.getString("specs"));
+                        mobiles.setMobileurl(jsonObject.getString("mobileurl"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace(); }
+
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+    }
+    public void openactivity() {
+        Intent intent = new Intent(this, details.class);
+        intent.putExtra("mobileurl", getIntent().getExtras().getString("mobileurl"));
+        intent.putExtra("name", getIntent().getExtras().getString("name"));
+
+        startActivity(intent);
+
+    }
+//    public void description(){
+//        String name = getIntent().getExtras().getString("name");
+//        String price = getIntent().getExtras().getString("price");
+//        String storage = getIntent().getExtras().getString("storage");
+//        String image_url = getIntent().getExtras().getString("mobileurl");
+//        String description = getIntent().getExtras().getString("spec");
+//
+//        TextView tv_name = findViewById(R.id.name_result);
+//        TextView tv_price = findViewById(R.id.price_db);
+//        TextView tv_storage = findViewById(R.id.store_db);
+//        TextView tv_descr = findViewById(R.id.description_db);
+//        ImageView img = findViewById(R.id.imageView);
+//
+//        tv_name.setText(name);
+//        tv_price.setText(price);
+//        tv_storage.setText(storage);
+//        tv_descr.setText(description);
+//    }
 }
+
+
+
+
+

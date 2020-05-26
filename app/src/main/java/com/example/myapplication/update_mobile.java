@@ -10,8 +10,8 @@ public class update_mobile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_mobile);
+        setContentView(R.layout.updatemobile);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Update a mobile details");
+        actionBar.setTitle("Update details");
     }
 }

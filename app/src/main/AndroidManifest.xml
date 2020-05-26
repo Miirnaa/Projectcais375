@@ -18,12 +18,12 @@
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".details"
-            android:parentActivityName=".listofmobilesActivity" />
+            android:parentActivityName=".listview" />
         <activity
-            android:name=".listofmobilesActivity"
+            android:name=".listview"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".InsertActivity"
+            android:name=".Insert"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

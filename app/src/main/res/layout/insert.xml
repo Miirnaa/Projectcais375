@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InsertActivity">
+    tools:context=".Insert">
 
     <TextView
         android:id="@+id/TitleTextView"
@@ -14,7 +14,8 @@
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Insert Mobile Record"
-        android:textColor="#1E32A3"
+        android:textStyle="bold"
+        android:textColor="#0E74C5"
         android:textSize="24dp" />
 
     <EditText
@@ -24,11 +25,10 @@
         android:layout_below="@id/TitleTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:ems="10"
         android:gravity="left"
+        android:textSize="13dp"
         android:hint="Enter Mobile Name"
-        android:inputType="textPersonName"
-        android:textColor="#3F51B5"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <EditText
@@ -38,11 +38,11 @@
         android:layout_below="@id/TitleTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:ems="10"
+        android:textSize="13dp"
         android:gravity="left"
         android:hint="Enter Mobile Price"
         android:inputType="textPersonName"
-        android:textColor="#3F51B5"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <EditText
@@ -52,11 +52,11 @@
         android:layout_below="@id/TitleTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
-        android:ems="10"
+        android:textSize="13dp"
         android:gravity="left"
         android:hint="Enter Mobile Storage"
         android:inputType="textPersonName"
-        android:textColor="#3F51B5"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <EditText
@@ -66,36 +66,44 @@
         android:layout_below="@id/NameEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="87dp"
-        android:ems="10"
+        android:textSize="13dp"
         android:gravity="top"
-        android:hint="Enter Mobile Specification"
+        android:hint="Enter Mobile Description"
         android:inputType="textCapSentences|textMultiLine"
         android:lines="5"
         android:scrollHorizontally="false"
-        android:textColor="#3F51B5"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/InsertButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/specsEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="Insert Data"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:text="Insert "
         android:textAllCaps="false"
-        android:textColor="#673AB7"
+        android:textColor="#0E74C5"
         android:textSize="18dp" />
 
     <Button
         android:id="@+id/choose"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/specsEditText"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="100dp"
         android:text="Choose image"
         android:textAllCaps="false"
-        android:textColor="#673AB7"
+        android:textColor="#0E74C5"
         android:textSize="18dp" />
 </RelativeLayout>
